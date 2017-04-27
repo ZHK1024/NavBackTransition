@@ -17,7 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // 设置 navigationBar 背景为透明
     [self.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    // 隐藏 navigationBar 底部分割线
     self.navigationBar.shadowImage = [UIImage new];
 }
 

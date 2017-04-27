@@ -46,10 +46,7 @@
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
     
-    fromVC.view.hidden = YES;
-    
-    [containerView addSubview:toVC.view];
-    [containerView addSubview:imageView];
+//    fromVC.view.hidden = YES;
     
     
     if (_operation == UINavigationControllerOperationPush) {
@@ -64,7 +61,9 @@
         toVC.view.layer.shadowColor = [UIColor grayColor].CGColor;
         toVC.view.layer.shadowOffset = CGSizeMake(-3, 0);
         toVC.view.layer.shadowOpacity = .5;
+        
     }else if (_operation == UINavigationControllerOperationPop) {
+        
         [containerView addSubview:toVC.view];
         [containerView addSubview:imageView];
         
@@ -102,7 +101,7 @@
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         [imageView removeFromSuperview];
         [backView removeFromSuperview];
-        fromVC.view.hidden = NO;
+//        fromVC.view.hidden = NO;
     }];
     
 }

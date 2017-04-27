@@ -11,7 +11,9 @@
 
 @interface BaseViewController () <UINavigationControllerDelegate>
 
+// 导航栏背景视图
 @property (nonatomic, strong) UIView *navBackView_zhk;
+// 交互动画控制对象(主要用于全屏手势返回过程动画的控制)
 @property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactiveTransition_zhk;
 
 @end
@@ -48,15 +50,18 @@
 #pragma mark - Action
 
 - (void)_zhk_popGestureAction:(UIPanGestureRecognizer *)pan {
+    // 计算动画进度百分比
     CGFloat offset = [pan translationInView:self.view].x;
     CGFloat progress = offset / [UIScreen mainScreen].bounds.size.width;
-    progress = MIN(1.0, MAX(0.0, progress));
     if (pan.state == UIGestureRecognizerStateBegan) {
         self.interactiveTransition_zhk = [[UIPercentDrivenInteractiveTransition alloc] init];
+        // pop
         [self.navigationController popViewControllerAnimated:YES];
     }else if (pan.state == UIGestureRecognizerStateChanged) {
+        // 更新动画进度
         [_interactiveTransition_zhk updateInteractiveTransition:progress];
     }else if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled) {
+        // 大于 50% 完成过渡动画, 否则取消
         if (progress > 0.5) {
             [_interactiveTransition_zhk finishInteractiveTransition];
         }else {
@@ -68,11 +73,13 @@
 
 #pragma mark - UINavigationController delegate
 
+// 返回交互过渡动画控制对象
 - (nullable id <UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController
                                    interactionControllerForAnimationController:(id <UIViewControllerAnimatedTransitioning>) animationController {
     return _interactiveTransition_zhk;
 }
 
+// 返回过渡动画对象
 - (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
                                             animationControllerForOperation:(UINavigationControllerOperation)operation
                                                          fromViewController:(UIViewController *)fromVC
