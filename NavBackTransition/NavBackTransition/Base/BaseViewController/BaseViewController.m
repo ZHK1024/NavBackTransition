@@ -25,7 +25,7 @@
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     self.navBackView_zhk = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, 64)];
-    [self.view addSubview:_navBackView_zhk];
+//    [self.view addSubview:_navBackView_zhk];
     
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(_zhk_popGestureAction:)];
     [self.view addGestureRecognizer:pan];
@@ -35,12 +35,14 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.view bringSubviewToFront:_navBackView_zhk];
+//    [self.view bringSubviewToFront:_navBackView_zhk];
+    self.navigationController.navigationBar.barTintColor = _navBackColor_zhk;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.navigationController.delegate = self;
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,6 +52,7 @@
 #pragma mark - Action
 
 - (void)_zhk_popGestureAction:(UIPanGestureRecognizer *)pan {
+    [pan velocityInView:self.view];
     // 计算动画进度百分比
     CGFloat offset = [pan translationInView:self.view].x;
     CGFloat progress = offset / [UIScreen mainScreen].bounds.size.width;
@@ -93,6 +96,7 @@
     if (_navBackColor_zhk != navBackColor_zhk) {
         _navBackColor_zhk = navBackColor_zhk;
         _navBackView_zhk.backgroundColor = _navBackColor_zhk;
+        
     }
 }
 

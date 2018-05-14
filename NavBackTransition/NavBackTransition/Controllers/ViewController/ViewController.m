@@ -23,6 +23,7 @@
     self.title = @"首页";
     
     self.view.backgroundColor = [UIColor whiteColor];
+
 }
 
 

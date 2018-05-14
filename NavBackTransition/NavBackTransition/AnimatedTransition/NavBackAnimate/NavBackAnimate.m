@@ -48,6 +48,7 @@
     
 //    fromVC.view.hidden = YES;
     
+//    imageView.backgroundColor = [UIColor redColor];
     
     if (_operation == UINavigationControllerOperationPush) {
         
@@ -62,7 +63,7 @@
         toVC.view.layer.shadowOffset = CGSizeMake(-3, 0);
         toVC.view.layer.shadowOpacity = .5;
         
-    }else if (_operation == UINavigationControllerOperationPop) {
+    } else if (_operation == UINavigationControllerOperationPop) {
         
         [containerView addSubview:toVC.view];
         [containerView addSubview:imageView];
@@ -74,6 +75,8 @@
         imageView.layer.shadowColor = [UIColor grayColor].CGColor;
         imageView.layer.shadowOffset = CGSizeMake(-3, 0);
         imageView.layer.shadowOpacity = .5;
+    } else {
+        NSLog(@"");
     }
     
     UIView *backView = nil;
@@ -117,7 +120,10 @@
     
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0);
     
-    [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
+    BOOL success = [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
+    if (!success) {
+        [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    }
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     

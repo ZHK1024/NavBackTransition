@@ -17,10 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navBackColor_zhk = [UIColor orangeColor];
     self.title = @"第二页";
-
-    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {
