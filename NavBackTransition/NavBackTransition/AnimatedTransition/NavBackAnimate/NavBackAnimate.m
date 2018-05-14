@@ -46,10 +46,6 @@
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, screenSize.height)];
     
-//    fromVC.view.hidden = YES;
-    
-//    imageView.backgroundColor = [UIColor redColor];
-    
     if (_operation == UINavigationControllerOperationPush) {
         
         [containerView addSubview:imageView];
@@ -75,25 +71,23 @@
         imageView.layer.shadowColor = [UIColor grayColor].CGColor;
         imageView.layer.shadowOffset = CGSizeMake(-3, 0);
         imageView.layer.shadowOpacity = .5;
-    } else {
-        NSLog(@"");
     }
     
     UIView *backView = nil;
     if (navBackNeedTransition) {
-        
         backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenSize.width, 64)];
         backView.backgroundColor = fromVC.navBackColor_zhk;
         [containerView addSubview:backView];
     }
     
     [UIView animateWithDuration:Duration animations:^{
+        
         if (_operation == UINavigationControllerOperationPush) {
             
             imageView.frame = CGRectMake(-screenSize.width / 3, 0, screenSize.width, screenSize.height);
             toVC.view.frame = CGRectMake(0, 0, screenSize.width, screenSize.height);
             
-        }else if (_operation == UINavigationControllerOperationPop) {
+        } else if (_operation == UINavigationControllerOperationPop) {
             
             imageView.frame = CGRectMake(screenSize.width, 0, screenSize.width, screenSize.height);
             toVC.view.frame = CGRectMake(0, 0, screenSize.width, screenSize.height);
@@ -120,10 +114,8 @@
     
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, YES, 0);
     
-    BOOL success = [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
-    if (!success) {
-        [view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    }
+    [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:NO];
+//    [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     
